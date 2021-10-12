@@ -268,7 +268,9 @@
     },
     "variables": {
         "vmNamePrefix": "[toUpper(concat(parameters('vmName'), parameters('trainerInitials')))]",
-        "deployWindowsVM": "[if(equals(parameters('imageCreation'), 'No'), 'Windows', json('null'))]",        
+        "deployWindowsVM": "[if(equals(parameters('imageCreation'), 'No'), 'Windows', json('null'))]",
+        "vaultResourceGroup": "BalticTrainerOMS",
+        "vaultName": "DeploymentVM",        
         "_artifactsLocation": "https://raw.githubusercontent.com/cnomad/devbaazuretemplates",
         "_templateRepo": "/main/templates"
     },
@@ -468,7 +470,12 @@
                         "value": "[parameters('adminUsername')]"
                     },
                     "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
+                        "reference": {
+                            "keyVault": {
+                                "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
+                            },
+                            "secretName": "ITAdmin"
+                        }
                     }
                 }
             },
@@ -543,7 +550,12 @@
                         "value": "[parameters('localUsername')]"
                     },
                     "localUserPassword": {
-                        "value": "[parameters('localUserPassword')]"
+                        "reference": {
+                            "keyVault": {
+                                "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
+                            },
+                            "secretName": "Apprentice"
+                        }
                     }
                 }
             },
@@ -721,10 +733,6 @@
         "localUsername": {
             "type": "string",
             "value": "[parameters('localUsername')]"
-        },
-        "localUserPassword": {
-            "type": "string",
-            "value": "[parameters('localUserPassword')]"
         }
     }
 }
