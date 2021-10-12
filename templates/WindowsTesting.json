@@ -53,12 +53,6 @@
         "adminPassword": {
             "type": "securestring"
         },
-        "compassAdmin": {
-            "type": "string"
-        },
-        "compassAdminPassword": {
-            "type": "securestring"
-        },
         "localUsername": {
             "type": "string"
         },
@@ -169,7 +163,7 @@
                             "configuration": {
                                 "url": "[concat(variables('_artifactsLocation'), '/', variables('_extensionRepo'), '/', variables('dscArchiveFolder'), '/', variables('dscArchiveFileName'))]",
                                 "script": "xBaLabWindowsCfg.ps1",
-                                "function": "xBaLabWinTestingCfg"
+                                "function": "xBaLabWinClientCfg"
                             }
                         },
                         "protectedSettings": {
@@ -177,10 +171,6 @@
                                 "Credential": {
                                     "UserName": "[parameters('localUsername')]",
                                     "Password": "[parameters('localUserPassword')]"
-                                },
-                                "Credential2": {
-                                    "Username": "[parameters('compassAdmin')]",
-                                    "Password": "[parameters('compassAdminPassword')]"
                                 }
                             }
                         }
