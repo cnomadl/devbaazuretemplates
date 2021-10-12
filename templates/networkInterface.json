@@ -1,0 +1,101 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmName": {
+            "type": "string"
+        },
+        "vmCount": {
+            "type": "int"
+        },
+        "trainerInitials": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "createdBy": {
+            "type": "string"
+        },
+        "resourceGroupCleanup": {
+            "type": "string"
+        },
+        "subnetName": {
+            "type": "string"
+        },
+        "vnetNewOrExisting": {
+            "type": "string"
+        },
+        "existingVnet": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "networkSecurityGroupName": "[concat(resourceGroup().name, '-nsg')]",
+        "vmNamePrefix": "[toUpper(concat(parameters('vmName'), parameters('trainerInitials')))]",
+        "vnetName": "[concat(resourceGroup().name, '-vnet')]",
+        "newVnetId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), parameters('subnetName'))]",
+        "vnetNameId": "[concat(parameters('existingVnet'), parameters('subnetName'))]",
+        "existingVnetId": "[resourceId('Microsoft.Network/virtualNetworks/', parameters('existingVnet'))]",
+        "existingSubnetId": "[concat(variables('existingVnetId'), '/subnets/', parameters('subnetName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2020-11-01",
+            "name": "[concat(variables('vmNamePrefix'), copyIndex('nicLoop', 1), '-nic')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "Displayname": "Network Interface",
+                "Dept": "[resourceGroup().tags['Dept']]",
+                "Created By": "[parameters('createdBy')]",
+                "Cleanup": "[parameters('resourceGroupCleanup')]"
+            },
+            "copy": {
+                "name": "nicLoop",
+                "count": "[parameters('vmCount')]"
+            },
+            "dependsOn": [
+            ],
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "subnet": {
+                                "id": "[if(equals(parameters('vnetNewOrExisting'), 'new'), variables('newVnetId'), variables('existingSubnetId'))]"
+                            },
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('vmNamePrefix'), copyIndex('nicLoop', 1), '-ip'))]"
+                            }
+                        }
+                    }
+                ],
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]"
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "networkInterfaceId": {
+            "type": "array",
+            "copy": {
+                "count": "[parameters('vmCount')]",
+                "input": {
+                    "value": "[reference(resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmNamePrefix'), copyIndex(1), '-nic')))]"
+                }
+            }            
+        },
+        "privateIP": {
+            "type": "array",
+            "copy": {
+                "count": "[parameters('vmCount')]",
+                "input": {
+                    "value": "[reference(resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmNamePrefix'), copyIndex(1), '-nic'))).ipConfigurations[0].properties.privateIPAddress]"
+                }
+            }            
+        }
+    }
+}

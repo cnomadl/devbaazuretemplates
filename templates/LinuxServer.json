@@ -1,0 +1,165 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vmName": {
+            "type": "string"
+        },
+        "vmCount": {
+            "type": "int"
+        },
+        "trainerInitials": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "createdBy": {
+            "type": "string"
+        },
+        "idleVm": {
+            "type": "string"
+        },
+        "resourceGroupCleanup": {
+            "type": "string"
+        },
+        "schedule": {
+            "type": "string"
+        },
+        "vmSize": {
+            "type": "string"
+        },
+        "osDiskType": {
+            "type": "string"
+        },
+        "linuxOS": {
+            "type": "string"
+        },
+        "adminUsername": {
+            "type": "string"
+        },
+        "adminPassword": {
+            "type": "securestring"
+        },
+        "authenticationType": {
+            "type": "string"
+        },
+        "sshPublicKeyString": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "vmNamePrefix": "[toUpper(concat(parameters('vmName'), parameters('trainerInitials')))]",
+        "operatingSystemValues": {
+            "UbuntuServer": {
+                "publisher": "canonical",
+                "offer": "UbuntuServer",
+                "sku": "18.04-LTS",
+                "version": "latest"
+            },
+            "Debian": {
+                "publisher": "debian",
+                "offer": "debian-10",
+                "sku": "10",
+                "version": "latest"
+            },
+            "RedHat": {
+                "publisher": "RedHat",
+                "offer": "RHEL",
+                "sku": "8.2",
+                "version": "latest"
+            }
+        },
+        "linuxConfigurationSsh": {
+            "disablePasswordAuthentication": true,
+            "ssh": {
+                "publicKeys": [
+                    {
+                        "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+                        "keyData": "[parameters('sshPublicKeyString')]"
+                    }
+                ]
+            },
+            "patchSettings": {
+                "patchMode": "ImageDefault"
+            }
+        },
+        "linuxConfigurationPassword": {
+            "patchSettings": {
+                "patchMode": "ImageDefault"
+            }
+        },
+        "_artifactsLocation": "https://raw.githubusercontent.com/balticapprenticeships/azuretemplates",
+        "_extensionRepo": "main/extensions"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2020-12-01",
+            "name": "[concat(variables('vmNamePrefix'), copyIndex(1))]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "Displayname": "Virtual Machine",
+                "Dept": "[resourceGroup().tags['Dept']]",
+                "Created By": "[parameters('createdBy')]",
+                "Schedule": "[if(equals(parameters('schedule'), 'Yes'), 'StartDaily', 'NoSchedule')]",
+                "IdleShutdown": "[parameters('idleVm')]",
+                "Cleanup": "[parameters('resourceGroupCleanup')]"
+            },
+            "copy": {
+                "name": "virtualMachineLoop",
+                "count": "[parameters('vmCount')]"
+            },
+            "dependsOn": [
+            ],
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[parameters('vmSize')]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "name": "[concat(variables('vmNamePrefix'), copyIndex(1), '-osdisk')]",
+                        "createOption": "FromImage",
+                        "managedDisk": {
+                            "storageAccountType": "[parameters('osDiskType')]"
+                        }
+                    },
+                    "imageReference": "[variables('operatingSystemValues')[parameters('linuxOS')]]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmNamePrefix'), copyIndex(1), '-nic'))]"
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "computerName": "[concat(variables('vmNamePrefix'), copyIndex(1))]",
+                    "adminUsername": "[parameters('adminUsername')]",
+                    "adminPassword": "[parameters('adminPassword')]",
+                    "LinuxConfiguration": "[if(equals(parameters('authenticationType'), 'Password'), variables('linuxConfigurationPassword'), variables('linuxConfigurationSsh'))]"
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": false
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {
+        "vmId": {
+            "type": "array",
+            "copy": {
+                "count": "[parameters('vmCount')]",
+                "input": {
+                    "value": "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('vmNamePrefix'), copyIndex(1)))]"
+                }
+            }            
+        },
+        "linuxOS": {
+            "type": "object",
+            "value": "[variables('operatingSystemValues')[parameters('linuxOS')]]"
+        }
+    }
+}
