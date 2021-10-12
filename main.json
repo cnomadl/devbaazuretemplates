@@ -267,8 +267,7 @@
         }
     },
     "variables": {
-        "vmNamePrefix": "[toUpper(concat(parameters('vmName'), parameters('trainerInitials')))]",
-        "deployWindowsVM": "[if(and(equals(parameters('osPlatform'), 'Windows'), parameters('imageBaseOS'), 'No'), 'Windows', json('null'))]",
+        "vmNamePrefix": "[toUpper(concat(parameters('vmName'), parameters('trainerInitials')))]",        
         "_artifactsLocation": "https://raw.githubusercontent.com/cnomad/devbaazuretemplates",
         "_templateRepo": "/main/templates"
     },
@@ -477,7 +476,7 @@
             ]  
         },
         {
-            "condition": "[equals(variables('deployWindowsVM'), 'Windows')]",
+            "condition": "[and(equals(parameters('osPlatform'), 'Windows'), parameters('imageCreation'), 'No')]",
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2020-10-01",
             "name": "DeployWindowsVM",
