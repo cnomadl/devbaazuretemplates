@@ -271,7 +271,7 @@
         "deployWindowsVM": "[if(equals(parameters('imageCreation'), 'No'), 'Windows', json('null'))]",
         "vaultResourceGroup": "BalticTrainerOMS",
         "vaultName": "DeploymentVM",        
-        "_artifactsLocation": "https://raw.githubusercontent.com/cnomad/devbaazuretemplates",
+        "_artifactsLocation": "https://raw.githubusercontent.com/cnomadl/devbaazuretemplates",
         "_templateRepo": "/main/templates"
     },
     "resources": [        
