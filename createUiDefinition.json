@@ -493,13 +493,25 @@
                         "elements": [
                             {
                                 "name": "localUsername",
-                                "type": "Microsoft.Common.TextBox",
+                                "type": "Microsoft.Common.DropDown",
                                 "label": "Standard User Username",
                                 "defaultValue": "",
-                                "placeholder": "e.g. Apprentice",
+                                "placeholder": "Select a username.",
                                 "constraints": {
-                                    "regex": "^[a-z0-9A-Z]{3,15}$",
-                                    "validationMessage": "Only alphnumeric characters are allowed, adn the username must be 3-15 characters long.",
+                                    "allowedValues": [
+                                        {
+                                            "label": "Apprentice",
+                                            "value": "Apprentice"
+                                        },
+                                        {
+                                            "label": "Learner",
+                                            "value": "Learner"
+                                        },
+                                        {
+                                            "label": "Student",
+                                            "value": "Student"
+                                        }
+                                    ],
                                     "required": true
                                 },
                                 "toolTip": "Here you can choose the standard user username for you virtual machine(s)."
