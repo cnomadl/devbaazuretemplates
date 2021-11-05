@@ -39,6 +39,12 @@
                 "description": "Trainer initials used to create a unique resources."
             }
         },
+        "courseDate": {
+            "type": "string",
+            "metadata": {
+                "description": ""
+            }
+        },
         "schedule": {
             "type": "string",
             "defaultValue": "No",
@@ -301,6 +307,9 @@
                     "createdBy": {
                         "value": "[parameters('createdBy')]"
                     },
+                    "courseDate": {
+                        "value": "[parameters('courseDate')]"
+                    },
                     "resourceGroupCleanup": {
                         "value": "[parameters('resourceGroupCleanup')]"
                     },
@@ -338,6 +347,9 @@
                     "createdBy": {
                         "value": "[parameters('createdBy')]"
                     },
+                    "courseDate": {
+                        "value": "[parameters('courseDate')]"
+                    },
                     "resourceGroupCleanup": {
                         "value": "[parameters('resourceGroupCleanup')]"
                     },
@@ -365,6 +377,9 @@
                     },
                     "createdBy": {
                         "value": "[parameters('createdBy')]"
+                    },
+                    "courseDate": {
+                        "value": "[parameters('courseDate')]"
                     },
                     "resourceGroupCleanup": {
                         "value": "[parameters('resourceGroupCleanup')]"
@@ -401,6 +416,9 @@
                     },
                     "createdBy": {
                         "value": "[parameters('createdBy')]"
+                    },
+                    "courseDate": {
+                        "value": "[parameters('courseDate')]"
                     },
                     "resourceGroupCleanup": {
                         "value": "[parameters('resourceGroupCleanup')]"
@@ -504,6 +522,9 @@
                     "trainerInitials": {
                         "value": "[parameters('trainerInitials')]"
                     },
+                    "courseDate": {
+                        "value": "[parameters('courseDate')]"
+                    },
                     "location": {
                         "value": "[parameters('location')]"
                     },
@@ -554,7 +575,7 @@
                             "keyVault": {
                                 "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
                             },
-                            "secretName": "Apprentice"
+                            "secretName": "[parameters('localUsername')]"
                         }
                     }
                 }
@@ -583,6 +604,9 @@
                     },
                     "trainerInitials": {
                         "value": "[parameters('trainerInitials')]"
+                    },
+                    "courseDate": {
+                        "value": "[parameters('courseDate')]"
                     },
                     "location": {
                         "value": "[parameters('location')]"
@@ -636,6 +660,7 @@
                 "Displayname": "Shutdown Schedule",
                 "Dept": "[resourceGroup().tags['Dept']]",
                 "Created By": "[parameters('createdBy')]",
+                "Course Date": "[parameters('courseDate')]",
                 "Cleanup": "[parameters('resourceGroupCleanup')]"
             },
             "copy": {

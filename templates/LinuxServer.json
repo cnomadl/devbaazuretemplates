@@ -17,6 +17,9 @@
         "createdBy": {
             "type": "string"
         },
+        "courseDate": {
+            "type": "string"
+        },
         "idleVm": {
             "type": "string"
         },
@@ -102,6 +105,7 @@
                 "Displayname": "Virtual Machine",
                 "Dept": "[resourceGroup().tags['Dept']]",
                 "Created By": "[parameters('createdBy')]",
+                "Course Date": "[parameters('courseDate')]",
                 "Schedule": "[if(equals(parameters('schedule'), 'Yes'), 'StartDaily', 'NoSchedule')]",
                 "IdleShutdown": "[parameters('idleVm')]",
                 "Cleanup": "[parameters('resourceGroupCleanup')]"

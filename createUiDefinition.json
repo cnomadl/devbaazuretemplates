@@ -577,6 +577,18 @@
                                 "toolTip": "Here you can enter your first name and surname"
                             },
                             {
+                                "name": "courseDate",
+                                "type": "Microsoft.Common.TextBox",
+                                "label": "Training Week",
+                                "placeholder": "e.g., WC01.11.21",
+                                "constraints": {
+                                    "regex": "^[A-Z]{2}$",
+                                    "required": true,
+                                    "validationMessage": "This must contain a maximum of 2 uppercase letters, the firstname initial and the surname initial."
+                                },
+                                "toolTip": "Please enter the the training week that the virtual machines are required for e.g., WC 01.11.21."
+                            },
+                            {
                                 "name": "schedule",
                                 "type": "Microsoft.Common.DropDown",
                                 "label": "Schedule Virtual Machine Start",
@@ -671,6 +683,7 @@
             "localUserPassword": "[steps('userAccountConfig').suacConfig.localUserPassword]",
             "createdBy": "[steps('tags').mngTagsConfig.createdBy]",
             "trainerInitials": "[steps('tags').mngTagsConfig.trainerInitials]",
+            "courseDate": "[steps('tags').mngTagsConfig.courseDate]",
             "schedule": "[steps('tags').mngTagsConfig.schedule]",
             "idleVm": "[steps('tags').mngTagsConfig.idleVm]",
             "resourceGroupCleanup": "[steps('tags').mngTagsConfig.resourceGroupCleanup]"

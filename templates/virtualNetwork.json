@@ -8,6 +8,9 @@
         "createdBy": {
             "type": "string"
         },
+        "courseDate": {
+            "type": "string"
+        },
         "resourceGroupCleanup": {
             "type": "string"
         },
@@ -30,6 +33,7 @@
                 "Displayname": "Virtual Network",
                 "Dept": "[resourceGroup().tags['Dept']]",
                 "Created By": "[parameters('createdBy')]",
+                "Course Date": "[parameters('courseDate')]",
                 "Cleanup": "[parameters('resourceGroupCleanup')]"
             },
             "properties": {

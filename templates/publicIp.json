@@ -17,6 +17,9 @@
         "createdBy": {
             "type": "string"
         },
+        "courseDate": {
+            "type": "string"
+        },
         "resourceGroupCleanup": {
             "type": "string"
         }
@@ -34,6 +37,7 @@
                 "Displayname": "Public IP Address",
                 "Dept": "[resourceGroup().tags['Dept']]",
                 "Created By": "[parameters('createdBy')]",
+                "Course Date": "[parameters('courseDate')]",
                 "Cleanup": "[parameters('resourceGroupCleanup')]"
             },
             "copy": {
