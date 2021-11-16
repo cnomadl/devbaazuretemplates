@@ -27,4 +27,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
  
 ### Changed
 - [main.json,createUiDefinition]
-  Removed the ability for users to create a learner password. This password is now pulled from a key vault
+  Removed the ability for users to create an admin or learner password. These password is now pulled from a key vault
+  changed operating system section to course selection for ease of use.
+  
+

@@ -1,6 +1,6 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "1.3.1.0",
+    "contentVersion": "2.0.0.0",
     "parameters": {
         "location": {
             "type": "string",
@@ -191,6 +191,31 @@
                 "description": ""
             }
         },
+        "securityType": {
+            "type": "string",
+            "defaultValue": "Standard",
+            "allowedValues": [
+                "Standard",
+                "TrustedLaunch"
+            ],
+            "metadata": {
+                "description": "TrustedLaunch"
+            }
+        },
+        "SecureBoot": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": ""
+            }
+        },
+        "vTPM": {
+            "type": "bool",
+            "defaultValue": true,
+            "metadata": {
+                "description": ""
+            }
+        },
         "licenseType": {
             "type": "string",
             "defaultValue": "AzureLicense",
@@ -236,13 +261,7 @@
             "metadata": {
                 "descriptopn": "The type of authentication used on the virtual machine. SSH is recommended for Linux VMs"
             }
-        },
-        "adminPassword": {
-            "type": "securestring",
-            "metadata": {
-                "description": "Admin password for the Virtual Machine. If Linux SSH is recommended."
-            }
-        },        
+        },       
         "sshPublicKeyString": {
             "type": "securestring",
             "defaultValue": "",
@@ -255,13 +274,6 @@
             "defaultValue": "",
             "metadata": {
                 "description": "None admin username"
-            }
-        },
-        "localUserPassword": {
-            "type": "securestring",
-            "defaultValue": "",
-            "metadata": {
-                "description": "None admin user password. If Linux SSH is recommended."
             }
         },
         "subnetName": {
@@ -484,6 +496,15 @@
                     "patchMode": {
                         "value": "[parameters('patchMode')]"
                     },
+                    "securityType": {
+                        "value": "[parameters('securityType')]"
+                    },
+                    "secureBoot": {
+                        "value": "[parameters('SecureBoot')]"
+                    },
+                    "vTPM": {
+                        "value": "[parameters('vTPM')]"
+                    },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
                     },
@@ -561,11 +582,25 @@
                     "patchMode": {
                         "value": "[parameters('patchMode')]"
                     },
+                    "securityType": {
+                        "value": "[parameters('securityType')]"
+                    },
+                    "secureBoot": {
+                        "value": "[parameters('SecureBoot')]"
+                    },
+                    "vTPM": {
+                        "value": "[parameters('vTPM')]"
+                    },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
                     },
                     "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
+                        "reference": {
+                            "keyVault": {
+                                "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
+                            },
+                            "secretName": "ITAdmin"
+                        }
                     },
                     "localUsername": {
                         "value": "[parameters('localUsername')]"
@@ -632,11 +667,25 @@
                     "linuxOS": {
                         "value": "[parameters('linuxOS')]"
                     },
+                    "securityType": {
+                        "value": "[parameters('securityType')]"
+                    },
+                    "secureBoot": {
+                        "value": "[parameters('SecureBoot')]"
+                    },
+                    "vTPM": {
+                        "value": "[parameters('vTPM')]"
+                    },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
                     },
                     "adminPassword": {
-                        "value": "[parameters('adminPassword')]"
+                        "reference": {
+                            "keyVault": {
+                                "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
+                            },
+                            "secretName": "ITAdmin"
+                        }
                     },
                     "authenticationType": {
                         "value": "[parameters('authenticationType')]"
@@ -660,7 +709,7 @@
                 "Displayname": "Shutdown Schedule",
                 "Dept": "[resourceGroup().tags['Dept']]",
                 "Created By": "[parameters('createdBy')]",
-                "Course Date": "[parameters('courseDate')]",
+                "Course Date": "[concat('WC-', parameters('courseDate'))]",
                 "Cleanup": "[parameters('resourceGroupCleanup')]"
             },
             "copy": {
