@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - [networkInterface.json]
   Added acceleratd networking
+
+### Removed
+- [main]
+  Removed output adminPassword
  
 ## [2.0.0.0] - 12-11-2021
  
@@ -29,5 +33,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [main.json,createUiDefinition]
   Removed the ability for users to create an admin or learner password. These password is now pulled from a key vault
   changed operating system section to course selection for ease of use.
-  
+
 
