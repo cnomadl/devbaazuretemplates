@@ -6,12 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [unreleased]
  
-Here we write upgrading notes for brands. It's a team effort to make them as
-straightforward as possible.
- 
 ### Add
 - [templates]
-  Added Trusted Launch support for Gen2 managed Windows images.
+  Add Trusted Launch support for Gen2 managed Windows images.
 
 ## [2.0.1.0] - 15.11.2021
 
@@ -20,9 +17,6 @@ straightforward as possible.
   Added acceleratd networking
  
 ## [2.0.0.0] - 12-11-2021
- 
-Here we write upgrading notes for brands. It's a team effort to make them as
-straightforward as possible.
  
 ### Added
 - [main.json,createUiDefinition]
