@@ -37,7 +37,7 @@
                 "Displayname": "Public IP Address",
                 "Dept": "[resourceGroup().tags['Dept']]",
                 "Created By": "[parameters('createdBy')]",
-                "Course Date": "[parameters('courseDate')]",
+                "Course Date": "[concat('WC-', parameters('courseDate'))]",
                 "Cleanup": "[parameters('resourceGroupCleanup')]"
             },
             "copy": {
