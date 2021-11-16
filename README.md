@@ -4,4 +4,4 @@
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fcnomadl%2Fdevbaazuretemplates%2Fmain%2Fmain.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2Fcnomadl%2Fdevbaazuretemplates%2Fmain%2FcreateUiDefinition.json)
 
-This template allows you to deploy multiple Windows or linux VMs in the West UK and South UK regions using a custom image and various options from OS version, to VM size and DSC configurations.
+This template allows you to deploy multiple Windows or Linux VMs in the West UK and South UK regions using a custom image and various options from OS version, to VM size and DSC configurations.
