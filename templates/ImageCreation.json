@@ -47,6 +47,15 @@
         "patchMode": {
             "type": "string"
         },
+        "securityType": {
+            "type": "string"
+        },
+        "secureBoot": {
+            "type": "bool"
+        },
+        "vTPM": {
+            "type": "bool"
+        },
         "adminUsername": {
             "type": "string"
         },
@@ -64,6 +73,13 @@
             },
             "WindowsClient": {
                 "galleryImageDefinitionName": "BA-Win10"
+            }
+        },
+        "trustedLaunch": {
+            "securityType": "[parameters('securityType')]",
+            "uefiSettings": {
+                "secureBootEnabled": "[parameters('secureBoot')]",
+                "vTpmEnabled": "[parameters('vTPM')]"
             }
         }
     },
@@ -123,7 +139,8 @@
                             "patchMode": "[parameters('patchMode')]"
                         }
                     }
-                },                
+                },
+                "securityProfile": "[if(equals(parameters('securityType'), 'TrustedLaunch'), variables('trustedLaunch'), json('null'))]",                
                 "licenseType": "[if(equals(parameters('licenseType'), 'AzureHybrid'), variables('windowsLicense'), json('null'))]",
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
