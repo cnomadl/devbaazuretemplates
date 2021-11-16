@@ -50,6 +50,15 @@
         "patchMode": {
             "type": "string"
         },
+        "securityType": {
+            "type": "string"
+        },
+        "secureBoot": {
+            "type": "bool"
+        },
+        "vTPM": {
+            "type": "bool"
+        },
         "adminUsername": {
             "type": "string"
         },
@@ -72,6 +81,13 @@
                 "galleryImageDefinitionName": "BA-SecurityPlus"
             }
         },
+        "trustedLaunch": {
+            "securityType": "[parameters('securityType')]",
+            "uefiSettings": {
+                "secureBootEnabled": "[parameters('secureBoot')]",
+                "vTpmEnabled": "[parameters('vTPM')]"
+            }
+        },
         "_artifactsLocation": "https://raw.githubusercontent.com/balticapprenticeships/azuretemplates",
         "_extensionRepo": "main/extensions",
         "dscArchiveFolder": "DSC",
@@ -87,7 +103,7 @@
                 "Displayname": "Virtual Machine",
                 "Dept": "[resourceGroup().tags['Dept']]",
                 "Created By": "[parameters('createdBy')]",
-                "Course Date": "[parameters('courseDate')]",
+                "Course Date": "[concat('WC-', parameters('courseDate'))]",
                 "Schedule": "[if(equals(parameters('schedule'), 'Yes'), 'StartDaily', 'NoSchedule')]",
                 "IdleShutdown": "[parameters('idleVm')]",
                 "Cleanup": "[parameters('resourceGroupCleanup')]"
@@ -134,7 +150,8 @@
                             "patchMode": "[parameters('patchMode')]"
                         }
                     }
-                },                
+                },
+                "securityProfile": "[if(equals(parameters('securityType'), 'TrustedLaunch'), variables('trustedLaunch'), json('null'))]",                
                 "licenseType": "[if(equals(parameters('licenseType'), 'AzureHybrid'), variables('windowsLicense'), json('null'))]",
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
@@ -152,7 +169,7 @@
                         "Displayname": "DSC",
                         "Dept": "[resourceGroup().tags['Dept']]",
                         "Created By": "[parameters('createdBy')]",
-                        "Course Date": "[parameters('courseDate')]",
+                        "Course Date": "[concat('WC-', parameters('courseDate'))]",
                         "Cleanup": "[parameters('resourceGroupCleanup')]"
                     },
                     "dependsOn": [
