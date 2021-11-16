@@ -9,13 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 Here we write upgrading notes for brands. It's a team effort to make them as
 straightforward as possible.
  
-### Added
+### Add
 - [templates]
   Added Trusted Launch support for Gen2 managed Windows images.
- 
-### Changed
-
-### Fixed
 
 ## [2.0.1.0] - 15.11.2021
 
@@ -38,5 +34,3 @@ straightforward as possible.
 ### Changed
 - [main.json,createUiDefinition]
   Removed the ability for users to create a learner password. This password is now pulled from a key vault
-
-### Fixed
