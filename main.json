@@ -245,12 +245,6 @@
                 "description": ""
             }
         },
-        "adminUsername": {
-            "type": "string",
-            "metadata": {
-                "description": "Admin username for the Virtual Machine."
-            }
-        },
         "authenticationType": {
             "type": "string",
             "defaultValue": "Password",
@@ -506,7 +500,12 @@
                         "value": "[parameters('vTPM')]"
                     },
                     "adminUsername": {
-                        "value": "[parameters('adminUsername')]"
+                        "reference": {
+                            "keyVault": {
+                                "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
+                            },
+                            "secretName": "AdminUsername"
+                        }
                     },
                     "adminPassword": {
                         "reference": {
@@ -592,7 +591,12 @@
                         "value": "[parameters('vTPM')]"
                     },
                     "adminUsername": {
-                        "value": "[parameters('adminUsername')]"
+                        "reference": {
+                            "keyVault": {
+                                "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
+                            },
+                            "secretName": "AdminUsername"
+                        }
                     },
                     "adminPassword": {
                         "reference": {
@@ -677,7 +681,12 @@
                         "value": "[parameters('vTPM')]"
                     },
                     "adminUsername": {
-                        "value": "[parameters('adminUsername')]"
+                        "reference": {
+                            "keyVault": {
+                                "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
+                            },
+                            "secretName": "AdminUsername"
+                        }
                     },
                     "adminPassword": {
                         "reference": {
@@ -795,10 +804,6 @@
         "virtualMachineFQDN": {
             "type": "array",
             "value": "[reference('DeployPublicIPAddress').outputs.fqdn.value]"
-        },
-        "adminUsername": {
-            "type": "string",
-            "value": "[parameters('adminUsername')]"
         },
         "localUsername": {
             "type": "string",
