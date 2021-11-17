@@ -271,6 +271,10 @@
                                     "value": "UbuntuServer"
                                 },
                                 {
+                                    "label": "Ubuntu Server 20.04",
+                                    "value": "UbuntuServer2004"
+                                },
+                                {
                                     "label": "Debian",
                                     "value": "Debian"
                                 },

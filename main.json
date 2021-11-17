@@ -150,6 +150,7 @@
             "defaultValue": "UbuntuServer",
             "allowedValues": [
                 "UbuntuServer",
+                "UbuntuServer2004",
                 "Debian",
                 "RedHat"
             ],
