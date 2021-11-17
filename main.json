@@ -1,6 +1,6 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "2.0.0.0",
+    "contentVersion": "2.0.1.0",
     "parameters": {
         "location": {
             "type": "string",
@@ -295,7 +295,7 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[concat(variables('_artifactsLocation'), variables('_templateRepo'), '/networkInterface.json')]",
-                    "contentVersion": "1.0.0.0"
+                    "contentVersion": "2.0.1.0"
                 },
                 "parameters": {
                     "vmName": {
@@ -344,7 +344,7 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[concat(variables('_artifactsLocation'), variables('_templateRepo'), '/networkSecurityGroup.json')]",
-                    "contentVersion": "1.0.0.0"
+                    "contentVersion": "2.0.1.0"
                 },
                 "parameters": {
                     "location": {
@@ -375,7 +375,7 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[concat(variables('_artifactsLocation'), variables('_templateRepo'), '/virtualNetwork.json')]",
-                    "contentVersion": "1.0.0.0"
+                    "contentVersion": "2.0.1.0"
                 },
                 "parameters": {
                     "location": {
@@ -405,7 +405,7 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[concat(variables('_artifactsLocation'), variables('_templateRepo'), '/publicIp.json')]",
-                    "contentVersion": "1.0.0.0"
+                    "contentVersion": "2.0.1.0"
                 },
                 "parameters": {
                     "vmName": {
@@ -442,7 +442,7 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[concat(variables('_artifactsLocation'), variables('_templateRepo'), '/ImageCreation.json')]",
-                    "contentVersion": "1.0.0.0"
+                    "contentVersion": "2.0.1.0"
                 },
                 "parameters": {
                     "vmName": {
@@ -530,7 +530,7 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[concat(variables('_artifactsLocation'), variables('_templateRepo'), '/', parameters('operatingSystem'), '.json')]",
-                    "contentVersion": "1.0.0.0"
+                    "contentVersion": "2.0.1.0"
                 },
                 "parameters": {
                     "vmName": {
@@ -632,7 +632,7 @@
                 "mode": "Incremental",
                 "templateLink": {
                     "uri": "[concat(variables('_artifactsLocation'), variables('_templateRepo'), '/LinuxServer.json')]",
-                    "contentVersion": "1.0.0.0"
+                    "contentVersion": "2.0.1.0"
                 },
                 "parameters": {
                     "vmName": {
