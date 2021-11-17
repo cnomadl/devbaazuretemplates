@@ -35,5 +35,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   Removed the ability for users to create an admin or learner password. These password is now pulled from a key vault
   Changed operating system section to course selection for ease of use.
   Remove output adminUsername
+  Updated Linux offerings to Gen2
 
 
