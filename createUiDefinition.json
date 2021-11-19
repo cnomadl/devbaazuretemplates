@@ -222,10 +222,6 @@
                                     "value": "WindowsClient"
                                 },
                                 {
-                                    "label": "Windows Server 2016",
-                                    "value": "WindowsServer"
-                                },
-                                {
                                     "label": "Networking and Architecture",
                                     "value": "WindowsServer"
                                 },
