@@ -264,6 +264,12 @@
                 "description": "Admin password for the Virtual Machine. If Linux SSH is recommended."
             }
         },
+        "adminUsername": {
+            "type": "string",
+            "metadata": {
+                "description": ""
+            }
+        },
         "localUsername": {
             "type": "string",
             "defaultValue": "",
@@ -313,6 +319,9 @@
                     },
                     "createdBy": {
                         "value": "[parameters('createdBy')]"
+                    },
+                    "operatingSystem": {
+                        "value": "[parameters('operatingSystem')]"
                     },
                     "courseDate": {
                         "value": "[parameters('courseDate')]"
@@ -501,19 +510,14 @@
                         "value": "[parameters('vTPM')]"
                     },
                     "adminUsername": {
-                        "reference": {
-                            "keyVault": {
-                                "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
-                            },
-                            "secretName": "AdminUsername"
-                        }
+                        "value": "[parameters('adminUsername')]"
                     },
                     "adminPassword": {
                         "reference": {
                             "keyVault": {
                                 "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
                             },
-                            "secretName": "ITAdmin"
+                            "secretName": "[parameters('adminUsername')]"
                         }
                     }
                 }
@@ -592,19 +596,14 @@
                         "value": "[parameters('vTPM')]"
                     },
                     "adminUsername": {
-                        "reference": {
-                            "keyVault": {
-                                "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
-                            },
-                            "secretName": "AdminUsername"
-                        }
+                        "value": "[parameters('adminUsername')]"
                     },
                     "adminPassword": {
                         "reference": {
                             "keyVault": {
                                 "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
                             },
-                            "secretName": "ITAdmin"
+                            "secretName": "[parameters('adminUsername')]"
                         }
                     },
                     "localUsername": {
@@ -682,19 +681,14 @@
                         "value": "[parameters('vTPM')]"
                     },
                     "adminUsername": {
-                        "reference": {
-                            "keyVault": {
-                                "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
-                            },
-                            "secretName": "AdminUsername"
-                        }
+                        "value": "[parameters('adminUsername')]"
                     },
                     "adminPassword": {
                         "reference": {
                             "keyVault": {
                                 "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
                             },
-                            "secretName": "ITAdmin"
+                            "secretName": "[parameters('adminUsername')]"
                         }
                     },
                     "authenticationType": {

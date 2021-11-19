@@ -242,7 +242,7 @@
                                     "value": "DiplomaVm"
                                 },
                                 {
-                                    "label": "Exam Testing",
+                                    "label": "MTA/C&G Exams",
                                     "value": "WindowsTesting"
                                 },                                
                                 {
@@ -459,17 +459,25 @@
                         "elements": [
                             {
                                 "name": "adminUsername",
-                                "type": "Microsoft.Common.TextBox",
+                                "type": "Microsoft.Common.DropDown",
                                 "label": "Administrator Username",
-                                "defaultValue": "",
-                                "placeholder": "e.g. ITAdmin",
+                                "multiLine": true,
+                                "placeholder": "Select an Admin account",
                                 "constraints": {
-                                    "regex": "^[a-z0-9A-Z]{3,15}$",
-                                    "validationMessage": "Only alphnumeric characters are allowed, adn the username must be 3-15 characters long.",
-                                    "required": false
+                                    "allowedValues": [
+                                        {
+                                            "label": "ITAdmin",
+                                            "value": "ITAdmin"
+                                        },
+                                        {
+                                            "label": "Exam Admin",
+                                            "description": "This admin account is for exam testing VMs ONLY.",
+                                            "value": "Apprentice"
+                                        }
+                                    ],
+                                    "required": true
                                 },
-                                "toolTip": "Here you can choose the Administrator username for you virtual machine(s).",
-                                "visible": false
+                                "toolTip": "Here you can choose the Administrator username for you virtual machine(s)."
                             },
                             {
                                 "name": "authenticationType",
@@ -490,21 +498,6 @@
                                     "required": true
                                 },
                                 "toolTip": "Here you can select the authentication type for your virtual machine(s) to either Password or SSH. SSH is recommended for Linux."
-                            },
-                            {
-                                "name": "adminPassword",
-                                "type": "Microsoft.Common.PasswordBox",
-                                "label": {
-                                    "password": "Password",
-                                    "confirmPassword": "Confirm Password"
-                                },
-                                "constraints": {
-                                    "regex": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\w~!@#$%&^*])(?!.*\\s)[a-zA-z\\d\\w~!@#$%&^*]{12,20}$",
-                                    "validationMessage": "The password must be at least 12 - 20 characters long, contain at least 1 uppercase and lowercase letter, 1 number and an optional special character.",
-                                    "required": false
-                                },
-                                "toolTip": "Here you can set the password for the administrator account if using password authentication.",
-                                "visible": false
                             },
                             {
                                 "name": "sshPublicKeyString",
@@ -549,21 +542,6 @@
                                     "required": true
                                 },
                                 "toolTip": "Here you can choose the standard user username for you virtual machine(s)."
-                            },
-                            {
-                                "name": "localUserPassword",
-                                "type": "Microsoft.Common.PasswordBox",
-                                "label": {
-                                    "password": "Password",
-                                    "confirmPassword": "Confirm Password"
-                                },
-                                "constraints": {
-                                    "regex": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\w~!@#$%&^*])(?!.*\\s)[a-zA-z\\d\\w~!@#$%&^*]{12,20}$",
-                                    "validationMessage": "The password must be at least 12 - 20 characters long, contain at least 1 uppercase and lowercase letter, 1 number and an optional special characters ~!@#$%&^*.",
-                                    "required": false
-                                },
-                                "toolTip": "Here you can set the password for the standard user account for your virtual machine(s).",
-                                "visible": false
                             }
                         ],
                         "visible": "[and(equals(steps('vmConfig').vmInstance.osPlatform, 'Windows'), equals(steps('osConfig').imageCreation, 'No'))]"
@@ -712,10 +690,8 @@
             "subnetName": "[steps('networkConfig').nicConfig.subnetName]",
             "adminUsername": "[steps('userAccountConfig').auacConfig.adminUsername]",
             "authenticationType": "[steps('userAccountConfig').auacConfig.authenticationType]",
-            "adminPassword": "[steps('userAccountConfig').auacConfig.adminPassword]",
             "sshPublicKeyString": "[steps('userAccountConfig').auacConfig.sshPublicKeyString]",
             "localUsername": "[steps('userAccountConfig').suacConfig.localUsername]",
-            "localUserPassword": "[steps('userAccountConfig').suacConfig.localUserPassword]",
             "createdBy": "[steps('tags').mngTagsConfig.createdBy]",
             "trainerInitials": "[steps('tags').mngTagsConfig.trainerInitials]",
             "courseDate": "[steps('tags').mngTagsConfig.courseDate]",
