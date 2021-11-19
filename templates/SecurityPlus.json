@@ -78,7 +78,7 @@
         "windowsLicense": "Windows_Server",
         "operatingSystemValues": {
             "SecurityPlus": {
-                "galleryImageDefinitionName": "BA-SecurityPlus"
+                "galleryImageDefinitionName": "BA-WinSvr2016Gen2"
             }
         },
         "trustedLaunch": {
