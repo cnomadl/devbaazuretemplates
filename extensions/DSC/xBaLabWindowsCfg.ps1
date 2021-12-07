@@ -62,6 +62,24 @@ Configuration xBaLabWinServerCfg {
             Ensure = "Present"
             IncludeAllSubFeature = $true
         }
+
+        # This resource block ensures that file is downloaded
+        xRemoteFile "DownloadInternetForNestedVms"
+        {
+            DestinationPath = "C:\buildArtifacts\internetForNestedVms.ps1"
+            Uri = ""
+            MatchSource = $false
+            DependsOn = "[xWindowsFeatureSe]AddHyperVFeatures"
+        }
+
+        # This resource block ensures that the file is executed
+        xScript "RunInternetForNestedVms"
+        {
+            SetScript = { . "C:\buildArtifacts\internetForNestedVms.ps1" }
+            TestScript = { $false }
+            GetScript = { @{ Result = (Get-Content "C:\buildArtifacts\internetForNestedVms.ps1") } }
+            DependsOn = "[xRemoteFile]DownloadInternetForNestedVms"
+        }
     }
     
 }
