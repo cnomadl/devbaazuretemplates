@@ -131,15 +131,17 @@
         },
         "operatingSystem": {
             "type": "string",
-            "defaultValue": "WindowsServer",
+            "defaultValue": "NoValue",
             "allowedValues": [
+                "NoValue",
                 "WindowsClient",
-                "WindowsServer",
+                "WindowsServer-NA",
+                "WindowsServer-SP",
+                "WindowsServer-CITE",
                 "WindowsTesting",
                 "DiplomaVm",
                 "RawDigital",
-                "DataBootCamp",
-                "SecurityPlus"
+                "DataBootCamp"
             ],
             "metadata": {
                 "description": "Choose your operating system."
@@ -168,6 +170,17 @@
             ],
             "metadata": {
                 "description": "The should be the version you wish to use. To use the latest version use the default value or specify the version you want to use e.g. 1.0.0 or 1.20.4"
+            }
+        },
+        "osDiskDeleteOption": {
+            "type": "string",
+            "defaultValue": "Delete",
+            "allowedValues": [
+                "Delete",
+                "Detach"
+            ],
+            "metadata": {
+                "description": ""
             }
         },
         "enableHotpatching": {
@@ -246,6 +259,28 @@
                 "description": ""
             }
         },
+        "nicDeleteOption": {
+            "type": "string",
+            "defaultValue": "Delete",
+            "allowedValues": [
+                "Delete",
+                "Detach"
+            ],
+            "metadata": {
+                "description": ""
+            }
+        },
+        "pipDeleteOption": {
+            "type": "string",
+            "defaultValue": "Delete",
+            "allowedValues": [
+                "Delete",
+                "Detach"
+            ],
+            "metadata": {
+                "description": ""
+            }
+        },
         "authenticationType": {
             "type": "string",
             "defaultValue": "Password",
@@ -287,6 +322,7 @@
     },
     "variables": {
         "vmNamePrefix": "[toUpper(concat(parameters('vmName'), parameters('trainerInitials')))]",
+        "osImage": "[if(contains(parameters('operatingSystem'), 'WindowsServer'), 'WindowsServer', parameters('operatingSystem'))]",
         "deployWindowsVM": "[if(equals(parameters('imageCreation'), 'No'), 'Windows', json('null'))]",
         "vaultResourceGroup": "BalticTrainerOMS",
         "vaultName": "DeploymentVM",        
@@ -337,6 +373,9 @@
                     },
                     "existingVnet": {
                         "value": "[parameters('existingVnet')]"
+                    },
+                    "pipDeleteOption": {
+                        "value": "[parameters('pipDeleteOption')]"
                     }
                 }
             },
@@ -509,6 +548,12 @@
                     "vTPM": {
                         "value": "[parameters('vTPM')]"
                     },
+                    "osDiskDeleteOption": {
+                        "value": "[parameters('osDiskDeleteOption')]"
+                    },
+                    "nicDeleteOption": {
+                        "value": "[parameters('nicDeleteOption')]"
+                    },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
                     },
@@ -534,7 +579,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[concat(variables('_artifactsLocation'), variables('_templateRepo'), '/', parameters('operatingSystem'), '.json')]",
+                    "uri": "[concat(variables('_artifactsLocation'), variables('_templateRepo'), '/', variables('osImage'), '.json')]",
                     "contentVersion": "2.0.1.0"
                 },
                 "parameters": {
@@ -572,7 +617,7 @@
                         "value": "[parameters('osDiskType')]"
                     },
                     "operatingSystem": {
-                        "value": "[parameters('operatingSystem')]"
+                        "value": "[variables('osImage')]"
                     },
                     "licenseType": {
                         "value": "[parameters('licenseType')]"
@@ -594,6 +639,12 @@
                     },
                     "vTPM": {
                         "value": "[parameters('vTPM')]"
+                    },
+                    "osDiskDeleteOption": {
+                        "value": "[parameters('osDiskDeleteOption')]"
+                    },
+                    "nicDeleteOption": {
+                        "value": "[parameters('nicDeleteOption')]"
                     },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
@@ -679,6 +730,12 @@
                     },
                     "vTPM": {
                         "value": "[parameters('vTPM')]"
+                    },
+                    "osDiskDeleteOption": {
+                        "value": "[parameters('osDiskDeleteOption')]"
+                    },
+                    "nicDeleteOption": {
+                        "value": "[parameters('nicDeleteOption')]"
                     },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"

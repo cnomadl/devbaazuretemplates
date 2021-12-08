@@ -223,15 +223,15 @@
                                 },
                                 {
                                     "label": "Networking and Architecture",
-                                    "value": "WindowsServer"
+                                    "value": "WindowsServe-NA"
                                 },
                                 {
                                     "label": "Cisco ITE",
-                                    "value": "WindowsServer"
+                                    "value": "WindowsServer-CITE"
                                 },
                                 {
                                     "label": "Security+",
-                                    "value": "WindowsServer"
+                                    "value": "WindowsServer-SP"
                                 },
                                 {
                                     "label": "L2 Diploma",

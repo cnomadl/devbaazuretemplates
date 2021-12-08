@@ -34,6 +34,9 @@
         },
         "existingVnet": {
             "type": "string"
+        },
+        "pipDeleteOption": {
+            "type": "string"
         }
     },
     "variables": {
@@ -75,7 +78,10 @@
                             },
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('vmNamePrefix'), copyIndex('nicLoop', 1), '-ip'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(variables('vmNamePrefix'), copyIndex('nicLoop', 1), '-ip'))]",
+                                "properties": {
+                                    "deleteOption": "[parameters('pipDeleteOption')]"
+                                }
                             }
                         }
                     }

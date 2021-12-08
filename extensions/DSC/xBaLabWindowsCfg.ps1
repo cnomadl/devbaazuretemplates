@@ -63,22 +63,19 @@ Configuration xBaLabWinServerCfg {
             IncludeAllSubFeature = $true
         }
 
-        # This resource block ensures that file is downloaded
-        xRemoteFile "DownloadInternetForNestedVms"
-        {
-            DestinationPath = "C:\buildArtifacts\internetForNestedVms.ps1"
-            Uri = ""
-            MatchSource = $false
-            DependsOn = "[xWindowsFeatureSe]AddHyperVFeatures"
-        }
-
         # This resource block ensures that the file is executed
-        xScript "RunInternetForNestedVms"
+        xScript "RunInternetForNestedVmsAlt"
         {
-            SetScript = { . "C:\buildArtifacts\internetForNestedVms.ps1" }
+            SetScript = { 
+                New-VMSwitch -SwitchName "Int-vSwitch" -SwitchType Internal
+                New-NetIPAddress -InterfaceAlias "vEthernet (Int-vSwitch)" -IPAddress 192.168.1.254 -PrefixLength 24
+                New-NetNat -Name NAT_VM -InternalIPInterfaceAddressPrefix 192.168.1.0/24
+            }
             TestScript = { $false }
-            GetScript = { @{ Result = (Get-Content "C:\buildArtifacts\internetForNestedVms.ps1") } }
-            DependsOn = "[xRemoteFile]DownloadInternetForNestedVms"
+            GetScript = { 
+                # Do Nothing
+            }
+            DependsOn = "[xWindowsFeatureSet]AddHyperVFeatures"
         }
     }
     

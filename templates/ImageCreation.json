@@ -56,6 +56,12 @@
         "vTPM": {
             "type": "bool"
         },
+        "osDiskDeleteOption": {
+            "type": "string"
+        },
+        "nicDeleteOption": {
+            "type": "string"
+        },
         "adminUsername": {
             "type": "string"
         },
@@ -113,7 +119,8 @@
                         "createOption": "FromImage",
                         "managedDisk": {
                             "storageAccountType": "[parameters('osDiskType')]"
-                        }
+                        },
+                        "deleteOption": "[parameters('osDiskDeleteOption')]"
                     },
                     "imageReference": {
                         "id": "[resourceId('Microsoft.Compute/galleries/images/versions', variables('galleryImageName'), variables('operatingSystemValues')[parameters('imageBaseOS')].galleryImageDefinitionName, parameters('imageVersion'))]"
@@ -122,7 +129,10 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmNamePrefix'), copyIndex('virtualMachineLoop', 1), '-nic'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmNamePrefix'), copyIndex('virtualMachineLoop', 1), '-nic'))]",
+                            "properties": {
+                                "deleteOption": "[parameters('nicDeleteOption')]"
+                            }
                         }
                     ]
                 },

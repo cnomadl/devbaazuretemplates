@@ -44,6 +44,12 @@
         "vTPM": {
             "type": "bool"
         },
+        "osDiskDeleteOption": {
+            "type": "string"
+        },
+        "nicDeleteOption": {
+            "type": "string"
+        },
         "linuxOS": {
             "type": "string"
         },
@@ -148,14 +154,18 @@
                         "createOption": "FromImage",
                         "managedDisk": {
                             "storageAccountType": "[parameters('osDiskType')]"
-                        }
+                        },
+                        "deleteOption": "[parameters('osDiskDeleteOption')]"
                     },
                     "imageReference": "[variables('operatingSystemValues')[parameters('linuxOS')]]"
                 },
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmNamePrefix'), copyIndex(1), '-nic'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('vmNamePrefix'), copyIndex(1), '-nic'))]",
+                            "properties": {
+                                "deleteOption": "[parameters('nicDeleteOption')]"
+                            }
                         }
                     ]
                 },

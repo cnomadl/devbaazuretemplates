@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [templates]
   Add Trusted Launch support for Gen2 managed Windows images.
   
+## [2.0.2.0] - 07.12.2021
+
+### Added
+- [main,WindowsServer,WindowsClient,WindowsTesting]
+  Added nic & OSdisk delete option to delete the nic and osDisk along wit the VM
+- [main,networkInterface]
+  Added pipDelete opion to delete the public IP address along with the VM
 
 ## [2.0.1.0] - 15.11.2021
 
