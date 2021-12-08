@@ -11,7 +11,7 @@
 New-VMSwitch -SwitchName "Int-vSwitch" -SwitchType Internal
 
 # Set an IPv4 address to the internal vSwtich to be used as a default gateway
-New-NetIPAddress -InterfaceAlias "vEthernet (Int-vSwitch)" -IPAddress 192.168.1.254 -PrefixLength 24
+New-NetIPAddress -InterfaceAlias "vEthernet (Int-vSwitch)" -IPAddress 172.16.20.254 -PrefixLength 24
 
 # Crete a NAT rule for an entire subnet
-New-NetNat -Name Nat_VM -InternalIPInterfaceAddressPrefix 192.168.1.0/24
+New-NetNat -Name Nat_VM -InternalIPInterfaceAddressPrefix 172.16.20.0/24
