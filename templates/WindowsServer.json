@@ -206,7 +206,7 @@
                             "configuration": {
                                 "url": "[concat(variables('_artifactsLocation'), '/', variables('_extensionRepo'), '/', variables('dscArchiveFolder'), '/', variables('dscArchiveFileName'))]",
                                 "script": "xBaLabWindowsCfg.ps1",
-                                "function": "[variables('operatingSystemDsc')[parameters('labConfig')].dscConfig]"
+                                "function": "xBaLabWinServerMdCfg"
                             }
                         },
                         "protectedSettings": {
