@@ -135,6 +135,8 @@
             "allowedValues": [
                 "NoValue",
                 "WindowsClient",
+                "WindowsServer-MD",
+                "WindowsServer-SF",
                 "WindowsServer-NA",
                 "WindowsServer-SP",
                 "WindowsServer-CITE",
@@ -310,6 +312,13 @@
             "defaultValue": "",
             "metadata": {
                 "description": "None admin username"
+            }
+        },
+        "localUserPassword": {
+            "type": "securestring",
+            "defaultValue": "",
+            "metadata": {
+                "description": "None username password"
             }
         },
         "subnetName": {
@@ -619,6 +628,9 @@
                     "operatingSystem": {
                         "value": "[variables('osImage')]"
                     },
+                    "labConfig": {
+                        "value": "[parameters('operatingSystem')]"
+                    },
                     "licenseType": {
                         "value": "[parameters('licenseType')]"
                     },
@@ -661,12 +673,7 @@
                         "value": "[parameters('localUsername')]"
                     },
                     "localUserPassword": {
-                        "reference": {
-                            "keyVault": {
-                                "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
-                            },
-                            "secretName": "[parameters('localUsername')]"
-                        }
+                        "value": "[parameters('localUserPassword')]"
                     }
                 }
             },
