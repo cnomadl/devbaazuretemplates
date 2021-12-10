@@ -214,7 +214,7 @@
                         "name": "operatingSystem",
                         "type": "Microsoft.Common.DropDown",
                         "label": "Select your course",
-                        "placeholder": "Select your image.",
+                        "placeholder": "Select your course.",
                         "constraints": {
                             "allowedValues": [
                                 {
@@ -222,7 +222,15 @@
                                     "value": "WindowsClient"
                                 },
                                 {
-                                    "label": "Networking and Architecture",
+                                    "label": "MTA Mobility and Devices",
+                                    "value": "WindowsServe-MD"
+                                },
+                                {
+                                    "label": "MTA Server Administration",
+                                    "value": "WindowsServe-SF"
+                                },
+                                {
+                                    "label": "C&G Networking and Architecture",
                                     "value": "WindowsServe-NA"
                                 },
                                 {
@@ -230,7 +238,7 @@
                                     "value": "WindowsServer-CITE"
                                 },
                                 {
-                                    "label": "Security+",
+                                    "label": "CompTIA Security+",
                                     "value": "WindowsServer-SP"
                                 },
                                 {
