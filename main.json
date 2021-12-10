@@ -174,17 +174,6 @@
                 "description": "The should be the version you wish to use. To use the latest version use the default value or specify the version you want to use e.g. 1.0.0 or 1.20.4"
             }
         },
-        "osDiskDeleteOption": {
-            "type": "string",
-            "defaultValue": "Delete",
-            "allowedValues": [
-                "Delete",
-                "Detach"
-            ],
-            "metadata": {
-                "description": ""
-            }
-        },
         "enableHotpatching": {
             "type": "bool",
             "defaultValue": false,
@@ -257,28 +246,6 @@
         "existingVnet": {
             "type": "string",
             "defaultValue": "",
-            "metadata": {
-                "description": ""
-            }
-        },
-        "nicDeleteOption": {
-            "type": "string",
-            "defaultValue": "Delete",
-            "allowedValues": [
-                "Delete",
-                "Detach"
-            ],
-            "metadata": {
-                "description": ""
-            }
-        },
-        "pipDeleteOption": {
-            "type": "string",
-            "defaultValue": "Delete",
-            "allowedValues": [
-                "Delete",
-                "Detach"
-            ],
             "metadata": {
                 "description": ""
             }
@@ -382,9 +349,6 @@
                     },
                     "existingVnet": {
                         "value": "[parameters('existingVnet')]"
-                    },
-                    "pipDeleteOption": {
-                        "value": "[parameters('pipDeleteOption')]"
                     }
                 }
             },
@@ -557,12 +521,6 @@
                     "vTPM": {
                         "value": "[parameters('vTPM')]"
                     },
-                    "osDiskDeleteOption": {
-                        "value": "[parameters('osDiskDeleteOption')]"
-                    },
-                    "nicDeleteOption": {
-                        "value": "[parameters('nicDeleteOption')]"
-                    },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
                     },
@@ -652,12 +610,6 @@
                     "vTPM": {
                         "value": "[parameters('vTPM')]"
                     },
-                    "osDiskDeleteOption": {
-                        "value": "[parameters('osDiskDeleteOption')]"
-                    },
-                    "nicDeleteOption": {
-                        "value": "[parameters('nicDeleteOption')]"
-                    },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
                     },
@@ -737,12 +689,6 @@
                     },
                     "vTPM": {
                         "value": "[parameters('vTPM')]"
-                    },
-                    "osDiskDeleteOption": {
-                        "value": "[parameters('osDiskDeleteOption')]"
-                    },
-                    "nicDeleteOption": {
-                        "value": "[parameters('nicDeleteOption')]"
                     },
                     "adminUsername": {
                         "value": "[parameters('adminUsername')]"
