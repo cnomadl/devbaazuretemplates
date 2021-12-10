@@ -223,15 +223,15 @@
                                 },
                                 {
                                     "label": "MTA Mobility and Devices",
-                                    "value": "WindowsServe-MD"
+                                    "value": "WindowsServer-MD"
                                 },
                                 {
                                     "label": "MTA Server Administration",
-                                    "value": "WindowsServe-SF"
+                                    "value": "WindowsServer-SF"
                                 },
                                 {
                                     "label": "C&G Networking and Architecture",
-                                    "value": "WindowsServe-NA"
+                                    "value": "WindowsServer-NA"
                                 },
                                 {
                                     "label": "Cisco ITE",
