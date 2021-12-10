@@ -86,7 +86,7 @@
         },
         "operatingSystemDSC": {
             "WindowsServer-MD": {
-                "dscConfig": "xBaLabWinServerMDCfg"
+                "dscConfig": "xBaLabWinServerMdCfg"
             },
             "WindowsServer-SF": {
                 "dscConfig": "xBaLabWinServerCfg"
