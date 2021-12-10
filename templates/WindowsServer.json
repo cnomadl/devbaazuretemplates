@@ -38,6 +38,9 @@
         "operatingSystem": {
             "type": "string"
         },
+        "labConfig": {
+            "type": "string"
+        },
         "licenseType": {
             "type": "string"
         },
@@ -80,12 +83,30 @@
     },
     "variables": {
         "vmNamePrefix": "[toUpper(concat(parameters('vmName'), parameters('trainerInitials')))]",
-        "galleryImageName": "TrainingACG",
+        "galleryImageName": "SharedImageGallery",
         "windowsLicense": "Windows_Server",
         "operatingSystemValues": {
             "WindowsServer": {
-                "galleryImageDefinitionName": "BA-WinSvr2016G2"
+                "galleryImageDefinitionName": "BA-WinServer2016"
             }
+        },
+        "operatingSystemDSC": {
+            "WindowsServer-MD": {
+                "dscConfig": "xBaLabWinServerMDCfg"
+            },
+            "WindowsServer-SF": {
+                "dscConfig": "xBaLabWinServerCfg"
+            },
+            "WindowsServer-NA": {
+                "dscConfig": "xBaLabWinServerCfg"
+            },
+            "WindowsServer-CITE": {
+                "dscConfig": "xBaLabWinServerCfg"
+            },
+            "WindowsServer-SP": {
+                "dscConfig": "xBaLabWinServerCfg"
+            }
+
         },
         "trustedLaunch": {
             "securityType": "[parameters('securityType')]",
@@ -195,7 +216,7 @@
                             "configuration": {
                                 "url": "[concat(variables('_artifactsLocation'), '/', variables('_extensionRepo'), '/', variables('dscArchiveFolder'), '/', variables('dscArchiveFileName'))]",
                                 "script": "xBaLabWindowsCfg.ps1",
-                                "function": "xBaLabWinServerCfg"
+                                "function": "[variables('operatingSystemDsc')[parameters('labConfig')].dscConfig]"
                             }
                         },
                         "protectedSettings": {
