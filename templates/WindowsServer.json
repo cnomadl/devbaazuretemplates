@@ -77,6 +77,16 @@
     },
     "variables": {
         "vmNamePrefix": "[toUpper(concat(parameters('vmName'), parameters('trainerInitials')))]",
+        "vaultResourceGroup": "BalticTrainerOMS",
+        "vaultName": "DeploymentVM",
+        "localUserPassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "[resourceId(subscription().subscriptionId, variables('vaultResourceGroup'), 'Microsoft.KeyVault/vaults', variables('vaultName'))]"
+                },
+                "secretName": "[parameters('localUsername')]"
+            }
+        },
         "galleryImageName": "SharedImageGallery",
         "windowsLicense": "Windows_Server",
         "operatingSystemValues": {
@@ -223,7 +233,7 @@
                             "configurationArguments": {
                                 "Credential": {
                                     "UserName": "[parameters('localUsername')]",
-                                    "Password": "[parameters('localUserPassword')]"
+                                    "Password": "[variables('localUserPassword')]"
                                 }
                             }
                         }
