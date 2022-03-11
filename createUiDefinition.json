@@ -568,7 +568,7 @@
                                 "toolTip": "Here you can set the password for the standard user account for your virtual machine(s)."
                             }
                         ],
-                        "visible": "[and(equals(steps('vmConfig').vmInstance.osPlatform, 'Windows'), equals(steps('osConfig').imageCreation, 'No'))]"
+                        "visible": "[and(equals(steps('vmConfig').vmInstance.osPlatform, 'Windows'), equals(steps('osConfig').imageCreation, 'No'), equals(steps('osConfig').operatingSystem, 'WindowsTesting'))]"
                     }
                 ]
             },
