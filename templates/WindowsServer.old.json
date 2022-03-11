@@ -1,6 +1,6 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-    "contentVersion": "2.0.1.0",
+    "contentVersion": "2.0.0.0",
     "parameters": {
         "vmName": {
             "type": "string"
@@ -227,6 +227,24 @@
                                 }
                             }
                         }
+                    }
+                },
+                {
+                    "type": "Microsoft.Compute/virtualMachines/extensions",
+                    "name": "[concat(variables('vmNamePrefix'), copyIndex('virtualMachineLoop', 1), '/AzurePolicyforWindows')]",
+                    "apiVersion": "2020-12-01",
+                    "location": "[parameters('location')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Compute/virtualMachines', concat(variables('vmNamePrefix'), copyIndex('virtualMachineLoop', 1)))]"
+                    ],
+                    "properties": {
+                        "publisher": "Microsoft.GuestConfiguration",
+                        "type": "ConfigurationforWindows",
+                        "typeHandlerVersion": "1.0",
+                        "autoUpgradeMinorVersion": true,
+                        "enableAutomaticUpgrade": true,
+                        "settings": {},
+                        "protectedSettings": {}
                     }
                 }
             ]
