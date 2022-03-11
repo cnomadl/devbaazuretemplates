@@ -565,10 +565,11 @@
                                     "validationMessage": "The password must be at least 12 - 20 characters long, contain at least 1 uppercase and lowercase letter, 1 number and an optional special characters ~!@#$%&^*.",
                                     "required": true
                                 },
-                                "toolTip": "Here you can set the password for the standard user account for your virtual machine(s)."
+                                "toolTip": "Here you can set the password for the standard user account for your virtual machine(s).",
+                                "visible": "[equals(steps('osConfig').operatingSystem, 'WindowsTesting')]"
                             }
                         ],
-                        "visible": "[and(equals(steps('vmConfig').vmInstance.osPlatform, 'Windows'), equals(steps('osConfig').imageCreation, 'No'), equals(steps('osConfig').operatingSystem, 'WindowsTesting'))]"
+                        "visible": "[and(equals(steps('vmConfig').vmInstance.osPlatform, 'Windows'), equals(steps('osConfig').imageCreation, 'No'))]"
                     }
                 ]
             },
